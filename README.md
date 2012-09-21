@@ -1,0 +1,22 @@
+bbTeX
+=====
+
+bbTeX is a port of TeX Live (http://tug.org/texlive/) to the BlackBerry PlayBook by David
+Breakey (http://www.davidbreakey.ca).
+
+bbTeX includes the ported TeX Live code, various distributions of TeX Live built for the
+PlayBook, and an application written for the BlackBerry Tablet OS Native SDK. It has
+translations for English and German and can easily be extended for more languages.
+
+The bbTeX application is available on the BlackBerry App World for a modest price.
+Alternatively, bbTeX can be compiled from this source for free, though it is not permitted
+to re-submit this app to the BlackBerry App World without significant modification or
+prior permission. 
+
+License Information
+-------------------
+
+The bbTeX application is free (as in speech) software released under the GNU General
+Public License. This project contains other open source software. Full license details can
+be found in the **NOTICE** file, while copies of the relevant licenses are in the 
+**LICENSE** file.

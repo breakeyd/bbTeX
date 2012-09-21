@@ -1,0 +1,28 @@
+# bbTeX particulars
+*distros/
+*texlive-*-source*
+*ignoredfiles/
+*cur-build-output/
+
+# BlackBerry NDK compiled objects
+*arm/o.le-v7-g/bbTeX
+*arm/o.le-v7/bbTeX
+*x86/o/bbTeX
+*x86/o-g/bbTeX
+*.bar
+
+# For macs
+*.DS_Store
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
