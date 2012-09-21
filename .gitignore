@@ -3,6 +3,7 @@
 *texlive-*-source*
 *ignoredfiles/
 *cur-build-output/
+*bbtex*.zip
 
 # BlackBerry NDK compiled objects
 *arm/o.le-v7-g/bbTeX

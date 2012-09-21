@@ -1,12 +1,13 @@
 Installing bbTeX Live distributions
 =====
 
-The distros above can be installed directly to your PlayBook by downloading the .zip
-archive that you want to your PlayBook and using bbTeX to install.
+The distros (http://github.com/breakeyd/bbTeX/downloads) can be installed directly to your
+PlayBook by downloading the .zip archive that you want to your PlayBook and using bbTeX to
+install.
 
-To download one of the above .zip archives, click on the one of your choice and then click
-"View Raw" on the page that appears. You can download it directly to your PlayBook and
-then use the "TeX Dist" option in the menu in bbTeX.
+To download one of the .zip archives, go to http://github.com/breakeyd/bbTeX/downloads and
+choose one. You can download it directly to your PlayBook and then use the "TeX Dist"
+option in the menu in bbTeX.
 
 Some of standard TeX modules were disabled (notably XeTeX) when the binaries were created.
 The system has been tested primarily with pdfTeX, but some other *TeX systems should work.
