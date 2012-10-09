@@ -48,6 +48,7 @@ int init() {
 
     changeKeyboardType(keyboardLayout);
     if (!checkForFirstRun()){
+    	navigator_extend_timeout(1800000,NULL);//we now have 30 minutes to complete installation
     	if(!guiAlertQuery(gStr("STR_FIRST_RUN_QUERY"))){
     		fprintf(stderr,"Cancelled first run.\n");
     		return EXIT_FAILURE;
@@ -56,7 +57,8 @@ int init() {
     	loadSettings();//reload default settings
     	firstRunComplete();
         fprintf(stderr,"Left first use tasks.\n");
-    }//<-stuck
+    	navigator_extend_timeout(30000,NULL);//we now have 30 seconds to display a window
+    }
     setTexBin("");
     return EXIT_SUCCESS;
 }
@@ -152,8 +154,26 @@ int main(int argc, char **argv) {
     screen_create_context(&screen_cxt, 0);
     bps_initialize();//Initialize BPS library
 
+    if (BPS_SUCCESS != navigator_request_events(0)) {//...and navigator events...
+        fprintf(stderr, "navigator_request_events failed\n");
+        screen_destroy_context(screen_cxt);
+        return 0;
+    }
+
+    if (BPS_SUCCESS != navigator_rotation_lock(true)) {//lock orientation
+        fprintf(stderr, "navigator_rotation_lock failed\n");
+        screen_destroy_context(screen_cxt);
+        return 0;
+    }
+
     if (BPS_SUCCESS != dialog_request_events(0)) {//dialog events...
         fprintf(stderr, "dialog_request_events failed\n");
+        screen_destroy_context(screen_cxt);
+        return 0;
+    }
+
+    if (BPS_SUCCESS != screen_request_events(screen_cxt)) {//tell bps that events will be needed
+        fprintf(stderr, "screen_request_events failed\n");
         screen_destroy_context(screen_cxt);
         return 0;
     }
@@ -166,27 +186,6 @@ int main(int argc, char **argv) {
 
     if (EXIT_SUCCESS != guiInit()) {//Initialize gui
         fprintf(stderr, "Unable to initialize gui\n");
-        screen_destroy_context(screen_cxt);
-        return 0;
-    }
-
-    if (BPS_SUCCESS != navigator_rotation_lock(true)) {//lock orientation
-        fprintf(stderr, "navigator_rotation_lock failed\n");
-        guiTerminate();
-        screen_destroy_context(screen_cxt);
-        return 0;
-    }
-
-    if (BPS_SUCCESS != screen_request_events(screen_cxt)) {//tell bps that events will be needed
-        fprintf(stderr, "screen_request_events failed\n");
-        guiTerminate();
-        screen_destroy_context(screen_cxt);
-        return 0;
-    }
-
-    if (BPS_SUCCESS != navigator_request_events(0)) {//...and navigator events...
-        fprintf(stderr, "navigator_request_events failed\n");
-        guiTerminate();
         screen_destroy_context(screen_cxt);
         return 0;
     }
@@ -210,8 +209,9 @@ int main(int argc, char **argv) {
         	}
         }
     }
-
     screen_stop_events(screen_cxt);
+//    dialog_stop_events(screen_cxt);
+//    navigator_stop_events(screen_cxt);
     bps_shutdown();
     term();
     screen_destroy_context(screen_cxt);

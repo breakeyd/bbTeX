@@ -22,12 +22,13 @@ static std::string getTexBin();
 
 int checkForFirstRun(){
 	//This is debug code to enforce first run behaviour
-//	systemCallResponse("rm -R data/*");
+//	std::string output = systemCallResponse("rm -R data/*");
 //	systemCallResponse("cp app/native/appSettings-default.txt data/appSettings.txt");
+//	fprintf(stderr,"%s\n",output.c_str());
 	//End debug code
 
 	fprintf(stderr,"Checking if this is first run...");
-	std::string frStatus = systemCallResponse("[ -f data/firstruncomplete ] && echo 'no.' || echo 'yes.'");
+	std::string frStatus = systemCallResponse("[ -f data/firstruncomplete" + getVersion() + " ] && echo 'no.' || echo 'yes.'");
 	fprintf(stderr,"%s",frStatus.c_str());
 	if(!frStatus.compare("yes.\n")){
 		return 0;
@@ -39,15 +40,18 @@ int firstRunTasks(){
 	systemCallResponse("cp app/native/appSettings-default.txt data/appSettings.txt");
 
 	guiInfoBox(gStr("STR_FIRST_RUN_RUNNING") + " -> " + gStr("STR_FIRST_RUN_MOVE"));
-	systemCallResponse("mv app/native/texlive data/");
+	std::string output =systemCallResponse("cp -rf app/native/texlive data/");
+	fprintf(stderr,"%s\n",output.c_str());
 	guiCloseDialog();
 
 	guiInfoBox(gStr("STR_FIRST_RUN_RUNNING") + " -> " + gStr("STR_FIRST_RUN_EXTRACT"));
-	systemCallResponse("cd data/texlive; ls *.zip | while read x; do unzip $x; done");
+	output = systemCallResponse("cd data/texlive; ls *.zip | while read x;do echo ${x%.zip};rm -Rf ${x%.zip}; unzip $x; done");
+	fprintf(stderr,"%s\n",output.c_str());
 	guiCloseDialog();
 
 	guiInfoBox(gStr("STR_FIRST_RUN_RUNNING") + " -> " + gStr("STR_FIRST_RUN_REMOVE"));
-	systemCallResponse("ls data/texlive/*.zip | while read x; do rm $x; done");
+	output = systemCallResponse("ls data/texlive/*.zip | while read x; do rm $x; done");
+	fprintf(stderr,"%s\n",output.c_str());
 	guiCloseDialog();
 
 	setTexBin("bbtexlive-2012basic");
@@ -56,7 +60,8 @@ int firstRunTasks(){
 }
 
 int firstRunComplete(){
-	systemCallResponse("touch data/firstruncomplete");
+
+	systemCallResponse("touch data/firstruncomplete" + getVersion());
 	fprintf(stderr,"Completed first run tasks...\n");
 
 	guiAlert(gStr("STR_FIRST_RUN_INST_REQ"));

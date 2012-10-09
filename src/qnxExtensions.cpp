@@ -26,8 +26,8 @@ std::string systemCallResponse(std::string sysCall){
 		printf("failed popen");
 		fflush(stdout);
 	}else{
-		char buffer[80];
-		    while( fgets( buffer, 80, fpipe ) != NULL ) {
+		char buffer[256];
+		    while( fgets( buffer, 256, fpipe ) != NULL ) {
 		    	response += buffer;
 		}
 		pclose( fpipe );

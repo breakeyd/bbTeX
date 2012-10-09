@@ -95,6 +95,7 @@ int waitForDialogResponse(){
 	bps_event_t *diagevent = NULL;
 	while(theDialog)  {
 //	for(;;){
+//		fprintf(stderr,"Waiting for dialog event...\n");
 		bps_get_event(&diagevent, -1);
 		if (diagevent) {
 //			fprintf(stderr,"0x%x\n",bps_event_get_code(diagevent));

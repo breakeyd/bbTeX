@@ -18,8 +18,8 @@
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.breakeyd.bbtex</id>
     <name>bbTeX</name>
-    <versionNumber>1.0.0</versionNumber>
-    <buildId>1</buildId>
+    <versionNumber>1.0.1</versionNumber>
+    <buildId>4</buildId>
     <author>David Breakey</author>
     <authorId>gYAAgBCLNuCnzm2bn1rxRzfoZUA</authorId>
     <initialWindow>
